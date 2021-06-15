@@ -8,7 +8,7 @@ from vqa_eval.PythonEvaluationTools.vqaEvaluation.vqaEval import VQAEval
 quesFile = utils.path_for(val=True, question=True)
 annFile = utils.path_for(val=True, answer=True)
 resFile = sys.argv[1]
-
+print(quesFile)
 # create vqa object and vqaRes object
 vqa = VQA(annFile, quesFile)
 vqaRes = vqa.loadRes(resFile, quesFile)

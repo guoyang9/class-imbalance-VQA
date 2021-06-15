@@ -38,7 +38,6 @@ def path_for(train=False, val=False, test=False, question=False, answer=False):
     return os.path.join(config.qa_path, s)
 
 
-
 def get_file(train=False, val=False, test=False, question=False, answer=False):
     """ Get the correct question or answer file."""
     _file = path_for(train=train, val=val, test=test,

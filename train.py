@@ -39,7 +39,7 @@ def train(model, optim, train_loader, loss_fn, tracker, writer, tb_count):
         a_s = a_s.cuda()
         bias = bias.cuda()
 
-        pred, mask, hidden = model(v, q)
+        pred, mask, hidden, _ = model(v, q)
         dict_args = {'bias': bias, 'hidden': hidden}
         if config.use_miu:
             dict_args['miu'] = a_s
@@ -76,7 +76,7 @@ def evaluate(model, dataloader, epoch=0, write=False):
     for v, q, a, a_m, a_s, _, q_id in tqdm(dataloader, leave=False):
         v = v.cuda()
         q = q.cuda()
-        pred, _, _ = model(v, q)
+        pred, _, _, _ = model(v, q)
         if write:
             results = saved_for_eval(dataloader, results, q_id, pred)
         batch_score = compute_score_with_logits(pred, a.cuda()).sum()

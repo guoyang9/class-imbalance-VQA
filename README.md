@@ -1,7 +1,9 @@
 # Loss-rescaling VQA: Revisiting Language Priors via A Class-imbalance View
-This repository is built upon the [code](https://github.com/Cyanogenoid/vqa-counting.git) provided by @Yan Zhang. Futher introduction will be given shortly.
+This repository is built upon the [code](https://github.com/hengyuan-hu/bottom-up-attention-vqa). Futher introduction will be given shortly.
 
 Almost all flags can be set by yourself at `utils/config.py`!
+
+This repo also re-implements CSS and LMH, please feel free to take a try. 
 
 ## Repo-download
 ```
@@ -43,6 +45,17 @@ First of all, make all the data in the right position according to the `utils/co
 ## Model Training
 ```
 python main.py --loss-fn Plain --name test-VQA --gpu 0
+```
+Note that the loss re-scaling works w/. or w/o. the answer mask pre-training module.
+
+The script for fine-tuning and re-implement our results:
+- set `use_mask = True` and `use_miu = False` in `config.py`:
+```
+python main.py --loss-fn Plain --name test-VQA --gpu 0
+```
+- fine-tune with the loss re-scaling approach, set both flags with `True`:
+```
+python main.py --loss-fn Plain --fine-tune --name test-VQA --name-new fine_tune --gpu 0
 ```
 
 ## Model Evaluation 

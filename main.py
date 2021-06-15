@@ -65,14 +65,14 @@ if __name__ == '__main__':
     torch.backends.cudnn.benchmark = True
 
     if 'log' not in args.name:
-        args.name = 'logs/' + args.name
+        args.name = 'logs/' + args.name + '.pth'
     if args.test_only or args.fine_tune or args.eval_only:
         args.resume = True
     if args.resume and not args.name:
         raise ValueError("Resuming requires folder name!")
     if args.resume:
         logs = torch.load(args.name)
-        print("loading logs from {}".format(args.name))
+        print("loading logs from {}".format(args.name + '.pth'))
 
     # ------------------------DATASET CREATION--------------------
     dictionary = Dictionary.load_from_file(config.dict_path)
@@ -132,9 +132,9 @@ if __name__ == '__main__':
             # if you want save your model with a new name
             if args.name_new:
                 if 'log' not in args.name_new:
-                    args.name = 'logs/' + args.name_new
+                    args.name = 'logs/' + args.name_new + '.pth'
                 else:
-                    args.name = args.name_new
+                    args.name = args.name_new + '.pth'
 
     eval_loader = DataLoader(eval_dset,
                     args.batch_size, shuffle=False, num_workers=4)

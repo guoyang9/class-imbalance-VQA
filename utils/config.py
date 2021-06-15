@@ -1,17 +1,17 @@
 # ----------------------running settings-------------------------- #
 cp_data     = True      # using vqa-cp or not
-version     = 'v2'      # 'v1' or 'v2'
+version     = 'v1'      # 'v1' or 'v2'
 train_set   = 'train'   # 'train' or 'train+val'
 loss_type   = 'bce'     # 'bce' or 'ce'
 in_memory   = False     # load all the image feature in memory
 
 # ----------------------flags of using answer mask and rescale--- #
-use_mask    = False
+use_mask    = True
 use_miu     = False
 ft_lr       = 2e-3      # fine-tune learning rate
 
 # ----------------------before-process data paths---------------- #
-main_path       = '/disk0/yang/test/vqa-data/'
+main_path       = '/disk0/jinming/test/vqa-data/'
 qa_path         = main_path + 'vqa-cp/' if cp_data else main_path
 qa_path        += version # questions and answers
 bottom_up_path  = main_path + 'bottom_up_feature/'  # raw image features

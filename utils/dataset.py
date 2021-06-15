@@ -201,7 +201,6 @@ class VQAFeatureDataset(Dataset):
                 entry['answer']['labels'] = None
                 entry['answer']['scores'] = None
 
-
     def load_image(self, image_id):
         """ Load one image feature. """
         if not hasattr(self, 'image_feat'):

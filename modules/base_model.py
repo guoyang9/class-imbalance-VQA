@@ -19,19 +19,20 @@ class BaseModel(nn.Module):
         self.classifier = classifier
         self.answer_mask = answer_mask
 
-    def forward(self, v, q):
+    def forward(self, v, q, v_mask=None):
         """
         Forward=
 
         v: [batch, num_objs, obj_dim]
         q: [batch_size, seq_length]
+        v_mask: [batch, num_objs] - mainly useful for css
 
         return: logits, not probs
         """
         w_emb = self.w_emb(q)
         q_emb, _ = self.q_emb(w_emb) # [batch, q_dim]
 
-        att = self.v_att(v, q_emb)
+        att = self.v_att(v, q_emb, v_mask)
         v_emb = (att * v).sum(1) # [batch, v_dim]
 
         q_repr = self.q_net(q_emb)
@@ -44,7 +45,7 @@ class BaseModel(nn.Module):
             logits *= mask
         else:
             mask = None
-        return logits, mask, joint_repr
+        return logits, mask, joint_repr, w_emb
 
 
 def build_baseline(dataset, num_hid):

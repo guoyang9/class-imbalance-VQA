@@ -4,6 +4,15 @@ from modules.fc import FCNet
 from torch.nn.utils.weight_norm import weight_norm
 
 
+def mask_softmax(x, mask):
+    mask = mask.unsqueeze(2).float()
+    x2 = torch.exp(x - torch.max(x))
+    x3 = x2 * mask
+    x3_sum = torch.sum(x3, dim=1, keepdim=True) + 1e-5
+    x4 = x3 / x3_sum.expand_as(x3)
+    return x4
+
+
 class Attention(nn.Module):
     def __init__(self, v_dim, q_dim, num_hid):
         super(Attention, self).__init__()
@@ -19,12 +28,16 @@ class Attention(nn.Module):
         logits = self.linear(joint_repr)
         return logits
 
-    def forward(self, v, q):
+    def forward(self, v, q, v_mask):
         """
         v: [batch, k, vdim]
         q: [batch, qdim]
         """
         logits = self.logits(v, q)
+        if v_mask is not None:
+            w = mask_softmax(logits, v_mask)
+        else:
+            w = nn.functional.softmax(logits, 1)
         w = nn.functional.softmax(logits, 1)
         return w
 
@@ -47,11 +60,14 @@ class NewAttention(nn.Module):
         logits = self.linear(joint_repr)
         return logits
 
-    def forward(self, v, q):
+    def forward(self, v, q, v_mask):
         """
         v: [batch, k, vdim]
         q: [batch, qdim]
         """
         logits = self.logits(v, q)
-        w = nn.functional.softmax(logits, 1)
+        if v_mask is not None:
+            w = mask_softmax(logits, v_mask)
+        else:
+            w = nn.functional.softmax(logits, 1)
         return w
