@@ -25,6 +25,12 @@ from utils.dataset import Dictionary, VQAFeatureDataset
 import modules.base_model as base_model
 from utils.losses import LearnedMixin, LearnedMixinH, FocalLoss, Plain
 
+seed = 1111
+random.seed(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+torch.backends.cudnn.benchmark = True
+
 
 _keep_qtype = True
 _topq = 1 # number of masked words
@@ -270,7 +276,7 @@ def parse_args():
                         help='number of dimension in last layer')
     parser.add_argument('--model', type=str, default='baseline_newatt',
                         help='model structure')
-    parser.add_argument('--name', type=str, default='exp0.pth',
+    parser.add_argument('--name', type=str, default='exp0',
                         help='saved model name')
     parser.add_argument('--name-new', type=str, default=None,
                         help='combine with fine-tune')
@@ -301,11 +307,6 @@ if __name__ == '__main__':
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     cudnn.benchmark = True
-
-    seed = 1111
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.backends.cudnn.benchmark = True
 
     if 'log' not in args.name:
         args.name = 'logs/' + args.name + '.pth'

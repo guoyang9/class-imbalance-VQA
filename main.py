@@ -27,7 +27,7 @@ def parse_args():
                         help='number of dimension in last layer')
     parser.add_argument('--model', type=str, default='baseline_newatt',
                         help='model structure')
-    parser.add_argument('--name', type=str, default='exp0.pth',
+    parser.add_argument('--name', type=str, default='exp0',
                         help='saved model name')
     parser.add_argument('--name-new', type=str, default=None,
                         help='combine with fine-tune')
