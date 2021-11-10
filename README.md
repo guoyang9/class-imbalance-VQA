@@ -65,6 +65,7 @@ python main.py --loss-fn Plain --fine-tune --name test-VQA --name-new fine_tune 
 python main.py --loss-fn Plain --name test-VQA --eval-only
 ```
 ## Citation
+Please cite the following article if you find this code helpful:
 ```
 @article{rescale-vqa,
   title={Loss Re-scaling VQA: Revisiting the Language Prior Problem from a Class-imbalance View},
@@ -72,5 +73,4 @@ python main.py --loss-fn Plain --name test-VQA --eval-only
   journal={IEEE TIP},
   year={2021}
 }
-```
 ```
