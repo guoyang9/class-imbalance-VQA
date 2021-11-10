@@ -1,5 +1,7 @@
-# Loss-rescaling VQA: Revisiting Language Priors via A Class-imbalance View
-This repository is built upon the [code](https://github.com/hengyuan-hu/bottom-up-attention-vqa). Futher introduction will be given shortly.
+# Loss Re-scaling VQA: Revisiting the Language Prior Problem from a Class-imbalance View
+This repository is built upon the [code](https://github.com/hengyuan-hu/bottom-up-attention-vqa). In this paper, we propose a simple loss re-weighting method for tackling the language prior problem in VQA. This repo implements methods on VQA v1 and v2, VQA-CP v1 and v2. I believe everything is simplified in this code and you can easily add your own module! 
+
+The LXMERT version can be found at another repo - https://github.com/guoyang9/LXMERT-VQACP.
 
 Almost all flags can be set by yourself at `utils/config.py`!
 
@@ -58,8 +60,17 @@ python main.py --loss-fn Plain --name test-VQA --gpu 0
 python main.py --loss-fn Plain --fine-tune --name test-VQA --name-new fine_tune --gpu 0
 ```
 
-## Model Evaluation 
+## Model Evaluation
 ```
 python main.py --loss-fn Plain --name test-VQA --eval-only
 ```
 ## Citation
+```
+@article{rescale-vqa,
+  title={Loss Re-scaling VQA: Revisiting the Language Prior Problem from a Class-imbalance View},
+  author={Guo, Yangyang and Nie, Liqiang and Cheng, Zhiyong and Tian, Qi and Zhang, Min},
+  journal={IEEE TIP},
+  year={2021}
+}
+```
+```
